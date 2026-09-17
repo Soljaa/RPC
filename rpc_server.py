@@ -1,5 +1,6 @@
 import rpyc
 import time
+import pickle
 
 
 class MyService(rpyc.Service):
@@ -18,15 +19,15 @@ class MyService(rpyc.Service):
     def exposed_get_answer(self):
         return 42 
 
-    def exposed_array_sum(self, array):
+    def exposed_array_sum(self, data_payload):
         start = time.time()
-        
-        resultado = sum(array)
+        array_local = pickle.loads(data_payload)
+        resultado = sum(array_local)
         
         end = time.time()
         
         print(end-start)
-        
+
         return resultado
 
     def get_question(self):

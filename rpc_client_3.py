@@ -1,6 +1,7 @@
 import rpyc 
 import sys
 import time
+import pickle
 
 start = time.time()
 
@@ -20,10 +21,11 @@ except:
    exit("Second argument should be a number") 
 
 array = list(range(array_max))
+data_payload = pickle.dumps(array) # serialização
   
 conn = rpyc.connect(server,18861)
 
-print(conn.root.array_sum(array))
+print(conn.root.array_sum(data_payload))
 
 end = time.time()
 
